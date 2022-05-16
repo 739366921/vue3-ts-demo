@@ -17,7 +17,7 @@
       </div>
     </div>
     <p class="mg-t10">{{ formData }}</p>
-    <Button type="primary" @click="insertName()">姓名插入哈哈</Button>
+    <Button type="primary" @click="insertName()">姓名插入</Button>
     <Steps direction="vertical" :active="1">
       <Step>
         <h3>商品已下单</h3>
