@@ -11,7 +11,7 @@ interface VideoInfoParam {
 // 获取用户信息
 export function getVideoInfo(param: VideoInfoParam) {
     return httpRequest({
-        url: '/api/video/search/',
+        url: '/video/search/',
         method: 'get',
         params: {
             option:param.option,
