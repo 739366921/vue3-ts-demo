@@ -7,9 +7,9 @@
     </router-view>
     <Tabbar placeholder route v-show="showFooter">
       <TabbarItem icon="home-o" replace to="/">首页</TabbarItem>
-      <TabbarItem icon="search" replace to="/search">搜索</TabbarItem>
+<!--      <TabbarItem icon="search" replace to="/search">搜索</TabbarItem>-->
 <!--      <TabbarItem icon="star-o" replace to="/collect">收藏</TabbarItem>-->
-      <TabbarItem icon="user-o" replace to="/mine">我的</TabbarItem>
+      <TabbarItem icon="gift-o" replace to="/mine">抽奖</TabbarItem>
     </Tabbar>
   </div>
 </template>

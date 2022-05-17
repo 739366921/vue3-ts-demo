@@ -65,7 +65,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, computed, onMounted, nextTick } from "vue";
-
+import { Toast } from 'vant';
 interface AwardTypes {
   id: number;
   runId: number;
@@ -161,7 +161,7 @@ export default defineComponent({
         if (current.value > 7) current.value = 0;
         // 若抽中的奖品id存在，并且转动时间大于2.5秒后，则开始减速转动
         if (award?.id && (Date.now() - time) / 1000 > minRotateTime) {
-          console.log("奖品出来了");
+          // console.log("奖品出来了");
           speed += diff; // 转动减速
           // 若转动时间超过5秒，等到当前格子是对应奖品id数组，则停下来
           if (
@@ -176,9 +176,10 @@ export default defineComponent({
                 (v) => v.id === award.id
               );
               if (getAward) {
-                console.log(
-                  `您抽中的奖品是${getAward.name},奖品id是${getAward.id}`
-                );
+                Toast.success(`您抽中的奖品是${getAward.name}`)
+                // console.log(
+                //   `您抽中的奖品是${getAward.name},奖品id是${getAward.id}`
+                // );
               }
             }, 400);
             return;
