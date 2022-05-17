@@ -1,7 +1,11 @@
 <template>
   <div class="home text-center">
     <p class="mg20 text-color">{{ time }}</p>
-
+    <Row>
+      <Col span="8">span: 8</Col>
+      <Col span="8">span: 8</Col>
+      <Col span="8">span: 8</Col>
+    </Row>
   </div>
 </template>
 
@@ -10,11 +14,14 @@ import dayjs from "dayjs";
 import {defineComponent} from "vue";
 // import VideoInfoApi from "/src/api/apis";
 import {getVideoInfo} from "@/api/apis";
-// import { Dialog } from "vant";
+import { Col,Row } from "vant";
 
 export default defineComponent({
   name: "HomePgae",
-  components: {},
+  components: {
+    Col,
+    Row
+  },
   data() {
     return {
       direction: "top",
@@ -25,7 +32,7 @@ export default defineComponent({
       city: ["", "", ""],
       filter: {
         option: 'title',
-        key: 'hero',
+        key: '蜡笔小新',
         current: 1,
         size: 10
       }
