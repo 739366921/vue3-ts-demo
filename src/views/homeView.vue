@@ -66,7 +66,7 @@ export default defineComponent({
     }
   },
   setup() {
-    const list = ref([])
+    const list = ref<any[]>([])
     const loading = ref(false)
     const finished = ref(false)
     const value = ref('title')
@@ -86,8 +86,8 @@ export default defineComponent({
     ])
     const getVideo = async () => {
      const res = await getVideoInfo(filter.value)
-      console.log(res.value)
-      list.value.push(res.value)
+      console.log(res)
+      list.value.push(res)
     };
     const changeMenu = () => {
       filter.value.key = ''
