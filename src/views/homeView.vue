@@ -1,6 +1,6 @@
 <template>
   <div class="home text-center">
-    <p class="mg10 mg-b0 text-color">{{ time }}</p>
+    <p class="mg10 mg-b0 text-color time">{{ time }}</p>
     <search class="search-area" shape="round" @search="onSearch"
             v-model="filter.key" placeholder="请输入搜索关键词"/>
     <dropdown-menu>
@@ -14,12 +14,10 @@
           @load="onLoad"
       >
         <Row>
-          <Col span="8" v-for="item in list" :key="item">
-            <Image
-                width="100"
-                height="100"
-                lazy-load
-                src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+          <Col span="8" v-for="(item,index) in list" :key="index">
+            <van-image
+                height="180"
+                :src="item.cover"
             />
           </Col>
         </Row>
@@ -32,7 +30,6 @@
 <script lang="ts">
 import dayjs from "dayjs";
 import {defineComponent, ref} from "vue";
-// import VideoInfoApi from "/src/api/apis";
 import {getVideoInfo} from "@/api/apis";
 import {Search, DropdownMenu, DropdownItem, Row, Col, List, Image as VanImage} from "vant";
 
@@ -45,27 +42,11 @@ export default defineComponent({
     Col,
     Row,
     List,
-    Image
-  },
-  data() {
-    return {
-      direction: "top",
-      pinPadding: 0,
-      time: "",
-      timer: 0,
-      color: "red",
-      city: ["", "", ""]
-    };
-  },
-  methods: {
-    initTime() {
-      this.time = dayjs().format("YYYY-MM-DD HH:mm:ss");
-      this.timer = setInterval(() => {
-        this.time = dayjs().format("YYYY-MM-DD HH:mm:ss");
-      }, 1000);
-    }
+    VanImage
   },
   setup() {
+    const time = ref('')
+    const timer = ref(0)
     const list = ref<any[]>([])
     const loading = ref(false)
     const finished = ref(false)
@@ -85,21 +66,42 @@ export default defineComponent({
       {text: '分类名称', value: 'videoType'},
     ])
     const getVideo = async () => {
-     const res = await getVideoInfo(filter.value)
-      console.log(res)
-      list.value.push(res)
+      loading.value = true
+      try{
+        const res = await getVideoInfo(filter.value)
+        if(res){
+          list.value.push(...res)
+          loading.value = false
+        }else{
+          finished.value=true
+        }
+      }catch (e) {
+        console.warn(e)
+      }
+
     };
     const changeMenu = () => {
       filter.value.key = ''
     };
     const onSearch = () => {
+      list.value=[]
+      filter.value.current=1
+      if(loading.value)return
       getVideo()
     };
     const onLoad = () => {
-      filter.value.current += 1
-      getVideo()
+        filter.value.current += 1
+        getVideo()
+    };
+    const initTime = () => {
+      time.value = dayjs().format("YYYY-MM-DD HH:mm:ss");
+      timer.value = setInterval(() => {
+        time.value = dayjs().format("YYYY-MM-DD HH:mm:ss");
+      }, 1000)
     };
     return {
+      time,
+      timer,
       list,
       loading,
       finished,
@@ -108,7 +110,8 @@ export default defineComponent({
       filter,
       onSearch,
       onLoad,
-      changeMenu
+      changeMenu,
+      initTime
     }
   },
   created() {
@@ -120,9 +123,17 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 .home {
   --van-dropdown-menu-height: 0.66rem;
   --van-dropdown-menu-title-font-size: 13px;
+  .time{
+
+  }
+  .info-container{
+    margin-top:0.2rem;
+    height:100vh
+    overflow auto;
+  }
 }
 </style>
