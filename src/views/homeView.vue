@@ -22,7 +22,6 @@
           </Col>
         </Row>
       </List>
-
     </div>
   </div>
 </template>
@@ -77,8 +76,9 @@ export default defineComponent({
         }
       }catch (e) {
         console.warn(e)
+      }finally{
+        loading.value = false
       }
-
     };
     const changeMenu = () => {
       filter.value.key = ''
@@ -86,6 +86,7 @@ export default defineComponent({
     const onSearch = () => {
       list.value=[]
       filter.value.current=1
+      finished.value=false
       if(loading.value)return
       getVideo()
     };
@@ -132,8 +133,8 @@ export default defineComponent({
   }
   .info-container{
     margin-top:0.2rem;
-    height:100vh
     overflow auto;
+    height:76.5vh;
   }
 }
 </style>
