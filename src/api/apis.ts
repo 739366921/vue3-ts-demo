@@ -16,7 +16,7 @@ export function getVideoInfo(param: VideoInfoParam) {
     return httpRequest({
         url: `/video/search/${param.option}/${param.key}/${param.current}/${param.size}`,
         method: 'get'
-    }).then(res => res.data)
+    })
 }
 // 获取电影详细信息
 export function getVideoDetail(param: VideoDetailParam) {

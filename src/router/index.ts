@@ -35,9 +35,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "address" */ '@/views/address/AddressEdit')
   },
   {
-    path: '/chat/list',
-    name: 'Chat',
-    component: () => import(/* webpackChunkName: "chatpage" */ '@/views/chat')
+    path: '/video/detail',
+    name: 'Video',
+    component: () => import(/* webpackChunkName: "videoDetail" */ '@/views/video/videoDetail')
   }
 ]
 

@@ -14,11 +14,14 @@
           @load="onLoad"
       >
         <Row>
-          <Col span="8" v-for="(item,index) in list" :key="index">
+          <Col span="8" v-for="(item,index) in list" :key="index" @click="toVideoDetail(item.videoId)">
             <van-image
                 height="180"
                 :src="item.cover"
+                radius="8"
             />
+            <p style="text-align: left;padding-left: 10px;font-weight: bold;font-size:16px;">{{item.title}}</p>
+            <p style="text-align: left;padding-left: 10px;font-size:14px;">{{item.videoType}}</p>
           </Col>
         </Row>
       </List>
@@ -31,7 +34,7 @@ import dayjs from "dayjs";
 import {defineComponent, ref} from "vue";
 import {getVideoInfo} from "@/api/apis";
 import {Search, DropdownMenu, DropdownItem, Row, Col, List, Image as VanImage} from "vant";
-
+import { useRouter } from "vue-router";
 export default defineComponent({
   name: "HomePgae",
   components: {
@@ -44,6 +47,7 @@ export default defineComponent({
     VanImage
   },
   setup() {
+    const router=useRouter()
     const time = ref('')
     const timer = ref(0)
     const list = ref<any[]>([])
@@ -68,8 +72,8 @@ export default defineComponent({
       loading.value = true
       try{
         const res = await getVideoInfo(filter.value)
-        if(res){
-          list.value.push(...res)
+        if(res.data){
+          list.value=list.value.concat(res.data)
           loading.value = false
         }else{
           finished.value=true
@@ -100,6 +104,14 @@ export default defineComponent({
         time.value = dayjs().format("YYYY-MM-DD HH:mm:ss");
       }, 1000)
     };
+    const toVideoDetail=(videoId:string)=>{
+      router.push({
+        path:'/video/detail',
+        query:{
+          videoId:videoId
+        }
+      })
+    };
     return {
       time,
       timer,
@@ -112,7 +124,8 @@ export default defineComponent({
       onSearch,
       onLoad,
       changeMenu,
-      initTime
+      initTime,
+      toVideoDetail
     }
   },
   created() {
