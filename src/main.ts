@@ -7,7 +7,7 @@ import './assets/css/main.styl'
 import BaseComponents from './components/base'
 import BaseDirective from './directive'
 import { createPinia } from 'pinia'
-
+import 'video.js/dist/video-js.css'
 
 const app = createApp(App)
 

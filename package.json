@@ -14,11 +14,15 @@
     "pinia": "^2.0.12",
     "sass-loader": "^12.6.0",
     "vant": "^3.4.6",
+    "video.js": "^6.13.0",
+    "videojs-contrib-hls": "^5.15.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.14",
+    "vue-video-player": "^5.0.2",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/video.js": "^7.3.40",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
