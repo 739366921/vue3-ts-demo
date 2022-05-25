@@ -7,3 +7,4 @@ declare module '*.vue' {
 
 // 添加声明
 declare module 'video.js'
+declare module 'lodash'

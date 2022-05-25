@@ -8,7 +8,7 @@ import videojs from 'video.js';
 
 export default defineComponent({
     setup() {
-        const textUrl = ref('https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8')
+        const loading = ref<boolean>(false)
         const videoList = ref<any[]>([])
         const videoUrl = ref<string>('')
         const videoIndex = ref<number>(0)
@@ -19,6 +19,7 @@ export default defineComponent({
             router.back()
         }
         const videoDetail = async () => {
+            loading.value = true
             const videoId = {videoId: route.query.videoId as string}
             try {
                 const res = ref<any>(await getVideoDetail(videoId))
@@ -28,10 +29,11 @@ export default defineComponent({
                 }
             } catch (e) {
                 console.warn(e)
+            }finally {
+              loading.value = false
             }
         }
         const setVideoObj = () => {
-            console.log(33333,videoUrl.value)
             playerObj.value = videojs('video', {
                 controls: true,
                 preload: 'auto',
@@ -53,7 +55,9 @@ export default defineComponent({
             setVideoObj()
         })
         onUnmounted(() => {
-            playerObj.value.dispose()
+            if (!loading.value) {
+                playerObj.value.dispose()
+            }
         })
         return () => (
             <div style="background:#f7f8fa;min-height:100vh">
@@ -75,7 +79,6 @@ export default defineComponent({
                                 }
                             )}
                         </Row>
-
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
     <search class="search-area" shape="round" @search="onSearch"
             v-model="filter.key" placeholder="请输入搜索关键词"/>
     <dropdown-menu>
-      <dropdown-item v-model="value" :options="option" @change="changeMenu"/>
+      <dropdown-item v-model="filter.option" :options="option" @change="changeMenu"/>
     </dropdown-menu>
     <div class="info-container">
       <List
@@ -53,7 +53,6 @@ export default defineComponent({
     const list = ref<any[]>([])
     const loading = ref(false)
     const finished = ref(false)
-    const value = ref('title')
     const filter = ref({
       option: 'title',
       key: '',
@@ -118,7 +117,6 @@ export default defineComponent({
       list,
       loading,
       finished,
-      value,
       option,
       filter,
       onSearch,

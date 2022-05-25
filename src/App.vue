@@ -13,7 +13,6 @@
     </Tabbar>
   </div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Tabbar, TabbarItem } from "vant";
